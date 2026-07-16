@@ -1,6 +1,3 @@
-# Data source to fetch current Azure login details (Tenant ID, Object ID for Key Vault)
-data "azurerm_client_config" "current" {}
-
 # 1. Random Generators for unique naming & passwords
 resource "random_string" "unique" {
   length  = 6
