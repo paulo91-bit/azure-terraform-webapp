@@ -77,13 +77,13 @@ resource "azurerm_storage_account" "storage" {
   account_replication_type = "LRS"
 }
 
-# 5. App Service Plan
+# 5. App Service Plan (Upgraded to B2)
 resource "azurerm_service_plan" "app_plan" {
   name                = "asp-${var.project_name}-${var.environment}"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   os_type             = "Linux"
-  sku_name            = "B1" 
+  sku_name            = "B2" # Upgraded production/test tier SKU
 }
 
 # 6. Frontend Linux Web App
@@ -172,6 +172,9 @@ resource "azurerm_postgresql_flexible_server" "postgres_server" {
   
   delegated_subnet_id    = azurerm_subnet.db_subnet.id
   private_dns_zone_id    = azurerm_private_dns_zone.postgres_dns.id
+
+  # Completely disables public endpoint to resolve API conflicts with VNets
+  public_network_access_enabled = false
 
   depends_on = [azurerm_private_dns_zone_virtual_network_link.postgres_vnet_link]
 }
