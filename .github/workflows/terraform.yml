@@ -6,14 +6,17 @@ on:
   pull_request:
     branches: [ "main" ]
 
+# Grants GitHub permission to request an OIDC token
+permissions:
+  id-token: write
+  contents: read
+
 # These pass your GitHub Secrets securely to Terraform
 env:
   ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-  ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
   ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
   ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-
-  # ADD THESE THREE LINES:
+  ARM_USE_OIDC: "true"
   TF_VAR_location: "northeurope"
   TF_VAR_environment: "demo3"
   TF_VAR_project_name: "webapp"

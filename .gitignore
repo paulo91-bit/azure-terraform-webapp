@@ -7,3 +7,4 @@
 
 # .tfvars files (Contains secrets!)
 *.tfvars
+*.credential.json
