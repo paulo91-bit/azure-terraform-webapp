@@ -15,7 +15,7 @@ env:
 
   # ADD THESE THREE LINES:
   TF_VAR_location: "northeurope"
-  TF_VAR_environment: "demo"
+  TF_VAR_environment: "demo3"
   TF_VAR_project_name: "webapp"
 
 jobs:
