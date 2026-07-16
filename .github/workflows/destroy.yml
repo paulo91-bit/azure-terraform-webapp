@@ -1,0 +1,35 @@
+name: 'Terraform Destroy'
+
+# This creates a manual button in the GitHub UI
+on:
+  workflow_dispatch: 
+
+env:
+  ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+  TF_VAR_location: "northeurope"
+  TF_VAR_environment: "demo3"
+  TF_VAR_project_name: "webapp"
+
+jobs:
+  terraform-destroy:
+    name: 'Terraform Destroy'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_wrapper: false
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Destroy
+        # The -auto-approve flag tells the robot not to wait for a "yes" prompt
+        run: terraform destroy -auto-approve
